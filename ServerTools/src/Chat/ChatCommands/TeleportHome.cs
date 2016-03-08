@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
@@ -193,10 +193,11 @@ namespace ServerTools
                 float.TryParse(_cords[1], out y);
                 float.TryParse(_cords[2], out z);
                 EntityPlayer _player = GameManager.Instance.World.Players.dict[_cInfo.entityId];
-                _player.position.x = x;
-                _player.position.y = y;
-                _player.position.z = z;
-                NetPackageEntityTeleport pkg = new NetPackageEntityTeleport(_player);
+                UnityEngine.Vector3 destPos = new UnityEngine.Vector3();
+                destPos.x = x;
+                destPos.y = -1;
+                destPos.z = z;
+                NetPackageTeleportPlayer pkg = new NetPackageTeleportPlayer(destPos);
                 DateTime _datetime;
                 if (DelayBetweenUses > 0 && _lastused.TryGetValue(_cInfo.playerId, out _datetime))
                 {
